@@ -9,7 +9,10 @@ https://github.com/reactjs/react-basic
 
 ```
 # 研究对象
-
+## react 初始化渲染
+```
+https://holmeshe.me/understanding-react-js-source-code-initial-rendering-I/
+```
 ## react 事件机制
 ## 生命周期
 ## diff算法
@@ -22,6 +25,19 @@ https://github.com/acdlite/react-fiber-architecture
 ```
 
 # 资源
+react 代码库预览
+```
+https://github.com/facebook/react/blob/master/README.md
+```
+理解react 源码系列
+```
+https://holmeshe.me/categories/Understanding-The-React-Source-Code/
+```
+react 源码阅读笔记 vue源码阅读笔记
+```
+https://github.com/numbbbbb/read-react-source-code
+https://github.com/numbbbbb/read-vue-source-code
+```
 整个React代码库解释（Stack + Fiber版本）
 ```
 https://github.com/Bogdan-Lyashenko/Under-the-hood-ReactJS
