@@ -29,6 +29,10 @@ react 代码库预览
 ```
 https://github.com/facebook/react/blob/master/README.md
 ```
+react 代码贡献
+```
+https://reactjs.org/docs/how-to-contribute.html
+```
 理解react 源码系列
 ```
 https://holmeshe.me/categories/Understanding-The-React-Source-Code/
@@ -66,4 +70,8 @@ https://speakerd.s3.amazonaws.com/presentations/36ed18550e8a4fc58c46160f16cbd5ff
 React Fiber 浅窥
 ```
 http://ju.outofmemory.cn/entry/335718
+Lin Clark - A Cartoon Intro to Fiber - React Conf 2017
+```
+http://www.ayqy.net/blog/dive-into-react-fiber/
+https://www.youtube.com/watch?v=ZCuYPiUIONs
 ```
