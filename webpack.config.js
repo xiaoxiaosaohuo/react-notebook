@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const isDebug = process.env.NODE_ENV === 'development'
 const publicPath = path.resolve(__dirname, "..");
-console.log(path.join(__dirname, "dist"));
 module.exports = {
     mode: isDebug ? 'development' : 'production',
     devtool: 'eval-source-map',
@@ -17,7 +16,7 @@ module.exports = {
         contentBase: path.join(__dirname, "dist"),
         historyApiFallback: true,
         inline: true,
-        port: '9002'
+        port: '3001'
     },
     module: {
         rules: [
@@ -72,10 +71,6 @@ module.exports = {
         ]
     },
     resolve:{
-        alias: {
-            'react':"anujs/dist/ReactIE",
-            'react-dom':"anujs/dist/ReactIE"
-          }
     },
     plugins: [
         new webpack.BannerPlugin("yhyh copyRight"),

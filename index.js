@@ -1,30 +1,62 @@
-class Timer extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { seconds: 0 };
-    }
-  
-    tick() {
-      this.setState(prevState => ({
-        seconds: prevState.seconds + 1
-      }));
-    }
-  
-    componentDidMount() {
-      this.interval = setInterval(() => this.tick(), 1000);
-    }
-  
-    componentWillUnmount() {
-      clearInterval(this.interval);
-    }
-  
-    render() {
-      return (
-        <div>
-          Seconds: {this.state.seconds}
-        </div>
-      );
-    }
-  }
+
   const mountNode = document.getElementById("root");
-  ReactDOM.render(<Timer />, mountNode);
+
+  class ChildCmp extends React.Component {
+    render() {
+        return <div> {this.props.childMessage} </div>
+    }
+}
+
+class ExampleApplication extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {message: 'no message'};
+    }
+
+    componentWillMount() {
+        //...
+        console.log("componentWillMount")
+    }
+
+    componentDidMount() {
+      console.log("componentDidMount")
+        /* setTimeout(()=> {
+            this.setState({ message: 'timeout state message' });
+        }, 1000); */
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return true;
+    }
+
+    componentDidUpdate(prevProps, prevState, prevContext) {
+        //...
+    }
+
+    componentWillReceiveProps(nextProps) {
+        //...
+    }
+
+    componentWillUnmount() {
+        //...
+    }
+
+    onClickHandler() {
+        /* this.setState({ message: 'click state message' }); */
+    }
+
+    render() {
+      console.log("render")
+        return <div>
+            <button onClick={this.onClickHandler.bind(this)}> set state button </button>
+            <ChildCmp childMessage={this.state.message} />
+            And some text as well!
+        </div>
+    }
+}
+
+ReactDOM.render(
+    <ExampleApplication hello={'world'} />,
+    mountNode,
+    function() {}
+);

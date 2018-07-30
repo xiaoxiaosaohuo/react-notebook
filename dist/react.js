@@ -757,7 +757,6 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
  */
 function createElement(type, config, children) {
   var propName = void 0;
-
   // Reserved names are extracted
   var props = {};
 
@@ -1659,6 +1658,8 @@ function validateFragmentProps(fragment) {
 }
 
 function createElementWithValidation(type, props, children) {
+  debugger;
+  //创建元素创建元素
   var validType = isValidElementType(type);
 
   // We warn in this case but don't throw. We expect the element creation to

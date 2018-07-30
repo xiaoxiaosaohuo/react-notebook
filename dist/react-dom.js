@@ -4099,6 +4099,7 @@ function isFiberMounted(fiber) {
 }
 
 function isMounted(component) {
+  debugger;
   {
     var owner = ReactCurrentOwner.current;
     if (owner !== null && owner.tag === ClassComponent) {
@@ -9097,6 +9098,7 @@ function createInstance(type, props, rootContainerInstance, hostContext, interna
 }
 
 function appendInitialChild(parentInstance, child) {
+  debugger;
   parentInstance.appendChild(child);
 }
 
@@ -9175,10 +9177,12 @@ function commitTextUpdate(textInstance, oldText, newText) {
 }
 
 function appendChild(parentInstance, child) {
+  debugger;
   parentInstance.appendChild(child);
 }
 
 function appendChildToContainer(container, child) {
+  debugger;
   if (container.nodeType === COMMENT_NODE) {
     container.parentNode.insertBefore(child, container);
   } else {
@@ -10123,6 +10127,8 @@ var debugCounter = void 0;
 }
 
 function FiberNode(tag, pendingProps, key, mode) {
+  debugger;
+  //创建fiber节点
   // Instance
   this.tag = tag;
   this.key = key;
@@ -10187,6 +10193,7 @@ function FiberNode(tag, pendingProps, key, mode) {
 // 5) It should be easy to port this to a C struct and keep a C implementation
 //    compatible.
 var createFiber = function (tag, pendingProps, key, mode) {
+  debugger;
   // $FlowFixMe: the shapes are exact here but Flow doesn't like constructors
   return new FiberNode(tag, pendingProps, key, mode);
 };
@@ -12831,6 +12838,7 @@ function ChildReconciler(shouldTrackSideEffects) {
   }
 
   function reconcileChildrenArray(returnFiber, currentFirstChild, newChildren, expirationTime) {
+    debugger;
     // This algorithm can't optimize by searching from boths ends since we
     // don't have backpointers on fibers. I'm trying to see how far we can get
     // with that model. If it ends up not being worth the tradeoffs, we can
@@ -12972,7 +12980,7 @@ function ChildReconciler(shouldTrackSideEffects) {
   function reconcileChildrenIterator(returnFiber, currentFirstChild, newChildrenIterable, expirationTime) {
     // This is the same implementation as reconcileChildrenArray(),
     // but using the iterator instead.
-
+    debugger;
     var iteratorFn = getIteratorFn(newChildrenIterable);
     !(typeof iteratorFn === 'function') ? invariant_1(false, 'An object is not an iterable. This error is likely caused by a bug in React. Please file an issue.') : void 0;
 
@@ -14383,6 +14391,7 @@ function memoizeState(workInProgress, nextState) {
 }
 
 function beginWork(current, workInProgress, renderExpirationTime) {
+  debugger;
   if (enableProfilerTimer) {
     if (workInProgress.mode & ProfileMode) {
       markActualRenderTimeStarted(workInProgress);
@@ -15246,7 +15255,7 @@ function commitPlacement(finishedWork) {
   if (!supportsMutation) {
     return;
   }
-
+debugger;
   // Recursively insert all host nodes into the parent.
   var parentFiber = getHostParentFiber(finishedWork);
   var parent = void 0;
@@ -16907,6 +16916,7 @@ function requestRetry(root, expirationTime) {
 // requestWork is called by the scheduler whenever a root receives an update.
 // It's up to the renderer to call renderRoot at some point in the future.
 function requestWork(root, expirationTime) {
+  debugger;
   addRootToSchedule(root, expirationTime);
 
   if (isRendering) {
@@ -16960,6 +16970,7 @@ function addRootToSchedule(root, expirationTime) {
 }
 
 function findHighestPriorityRoot() {
+  debugger;
   var highestPriorityWork = NoWork;
   var highestPriorityRoot = null;
   if (lastScheduledRoot !== null) {
@@ -17025,14 +17036,17 @@ function findHighestPriorityRoot() {
 }
 
 function performAsyncWork(dl) {
+  debugger;
   performWork(NoWork, true, dl);
 }
 
 function performSyncWork() {
+  debugger;
   performWork(Sync, false, null);
 }
 
 function performWork(minExpirationTime, isAsync, dl) {
+  debugger;
   deadline = dl;
 
   // Keep working on roots until there's no more work, or until the we reach
@@ -17341,6 +17355,7 @@ function getContextForSubtree(parentComponent) {
 }
 
 function scheduleRootUpdate(current, element, expirationTime, callback) {
+  debugger;
   {
     if (ReactDebugCurrentFiber.phase === 'render' && ReactDebugCurrentFiber.current !== null && !didWarnAboutNestedUpdates) {
       didWarnAboutNestedUpdates = true;
@@ -17366,6 +17381,7 @@ function scheduleRootUpdate(current, element, expirationTime, callback) {
 
 function updateContainerAtExpirationTime(element, container, parentComponent, expirationTime, callback) {
   // TODO: If this is a nested container, this won't be the root.
+  debugger;
   var current = container.current;
 
   {
@@ -17407,10 +17423,12 @@ function findHostInstance(component) {
 }
 
 function createContainer(containerInfo, isAsync, hydrate) {
+  debugger;
   return createFiberRoot(containerInfo, isAsync, hydrate);
 }
 
 function updateContainer(element, container, parentComponent, callback) {
+  debugger;
   var current = container.current;
   var currentTime = recalculateCurrentTime();
   var expirationTime = computeExpirationForFiber(currentTime, current);
@@ -17649,6 +17667,7 @@ ReactBatch.prototype._onComplete = function () {
 };
 
 function ReactWork() {
+  debugger;
   this._callbacks = null;
   this._didCommit = false;
   // TODO: Avoid need to bind by replacing callbacks in the update queue with
@@ -17684,10 +17703,12 @@ ReactWork.prototype._onCommit = function () {
 };
 
 function ReactRoot(container, isAsync, hydrate) {
+  debugger;
   var root = createContainer(container, isAsync, hydrate);
   this._internalRoot = root;
 }
 ReactRoot.prototype.render = function (children, callback) {
+  debugger;
   var root = this._internalRoot;
   var work = new ReactWork();
   callback = callback === undefined ? null : callback;
@@ -17808,6 +17829,7 @@ function legacyCreateRootFromDOMContainer(container, forceHydrate) {
   }
   // Legacy roots are not async by default.
   var isAsync = false;
+  debugger;
   return new ReactRoot(container, isAsync, shouldHydrate);
 }
 
@@ -17893,6 +17915,7 @@ var ReactDOM = {
   },
   render: function (element, container, callback) {
       debugger;
+      //渲染方法
     return legacyRenderSubtreeIntoContainer(null, element, container, false, callback);
   },
   unstable_renderSubtreeIntoContainer: function (parentComponent, element, containerNode, callback) {

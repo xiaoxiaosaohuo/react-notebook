@@ -46,3 +46,24 @@ react fiber资源
 ```
 https://github.com/koba04/react-fiber-resources
 ```
+
+```
+http://fiber-debugger.surge.sh/
+```
+fiber简介
+
+```
+https://segmentfault.com/a/1190000014957987
+```
+
+讲述reconciliation的一个ppt
+```
+https://zackargyle.github.io/react-internals-slides/#/17?_k=byv7go
+
+https://speakerd.s3.amazonaws.com/presentations/36ed18550e8a4fc58c46160f16cbd5ff/capability-of-react-fiber.pdf
+```
+
+React Fiber 浅窥
+```
+http://ju.outofmemory.cn/entry/335718
+```
