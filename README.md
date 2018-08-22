@@ -56,3 +56,6 @@ Lin Clark - A Cartoon Intro to Fiber - React Conf 2017
 http://www.ayqy.net/blog/dive-into-react-fiber/
 https://www.youtube.com/watch?v=ZCuYPiUIONs
 ```
+
+## 事件机制
+https://www.youtube.com/watch?v=dRo_egw7tBc
