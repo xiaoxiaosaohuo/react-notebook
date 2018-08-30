@@ -46,7 +46,7 @@ class ExampleApplication extends React.Component {
     }
 
     render() {
-      console.log("render")
+        debugger;
         return <div>
             <button onClick={this.onClickHandler.bind(this)}> set state button </button>
             <ChildCmp childMessage={this.state.message} />
@@ -54,7 +54,7 @@ class ExampleApplication extends React.Component {
         </div>
     }
 }
-
+debugger;
 ReactDOM.render(
     <ExampleApplication hello={'world'} />,
     mountNode,

@@ -756,6 +756,7 @@ var ReactElement = function (type, key, ref, self, source, owner, props) {
  * See https://reactjs.org/docs/react-api.html#createelement
  */
 function createElement(type, config, children) {
+  debugger;
   var propName = void 0;
   // Reserved names are extracted
   var props = {};
