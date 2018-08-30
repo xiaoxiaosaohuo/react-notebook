@@ -13141,6 +13141,7 @@ function ChildReconciler(shouldTrackSideEffects) {
   }
 
   function reconcileSingleElement(returnFiber, currentFirstChild, element, expirationTime) {
+    debugger;
     var key = element.key;
     var child = currentFirstChild;
     while (child !== null) {
@@ -13591,6 +13592,7 @@ var didWarnAboutStatelessRefs = void 0;
 
 // TODO: Remove this and use reconcileChildrenAtExpirationTime directly.
 function reconcileChildren(current, workInProgress, nextChildren) {
+  debugger;
   reconcileChildrenAtExpirationTime(current, workInProgress, nextChildren, workInProgress.expirationTime);
 }
 
@@ -13823,6 +13825,7 @@ function pushHostRootContext(workInProgress) {
 }
 
 function updateHostRoot(current, workInProgress, renderExpirationTime) {
+  debugger;
   pushHostRootContext(workInProgress);
   var updateQueue = workInProgress.updateQueue;
   if (updateQueue !== null) {
@@ -14603,6 +14606,7 @@ if (supportsMutation) {
 }
 
 function completeWork(current, workInProgress, renderExpirationTime) {
+  debugger;
   var newProps = workInProgress.pendingProps;
 
   if (enableProfilerTimer) {
@@ -16281,6 +16285,7 @@ function resetExpirationTime(workInProgress, renderTime) {
 }
 
 function completeUnitOfWork(workInProgress) {
+  debugger;
   // Attempt to complete the current unit of work, then move to the
   // next sibling. If there are no more siblings, return to the
   // parent fiber.
@@ -16427,6 +16432,7 @@ function completeUnitOfWork(workInProgress) {
 }
 
 function performUnitOfWork(workInProgress) {
+  debugger;
   // The current, flushed, state of this fiber is the alternate.
   // Ideally nothing should rely on this, but relying on it here
   // means that we don't need an additional field on the work in
@@ -17140,6 +17146,7 @@ function finishRendering() {
 }
 
 function performWorkOnRoot(root, expirationTime, isAsync) {
+  debugger;
   !!isRendering ? invariant_1(false, 'performWorkOnRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.') : void 0;
 
   isRendering = true;
