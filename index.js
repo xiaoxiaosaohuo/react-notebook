@@ -56,7 +56,7 @@ class ExampleApplication extends React.Component {
 }
 debugger;
 ReactDOM.render(
-    <ExampleApplication hello={'world'} />,
+    <h1>这是什么鬼啊</h1>,
     mountNode,
     function() {}
 );

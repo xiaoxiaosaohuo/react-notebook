@@ -9400,6 +9400,7 @@ var formatLabel = function (label, warning) {
 };
 
 var beginMark = function (markName) {
+  debugger;
   performance.mark(formatMarkName(markName));
 };
 
@@ -10204,6 +10205,7 @@ function shouldConstruct(Component) {
 
 // This is used to create an alternate fiber to do work on.
 function createWorkInProgress(current, pendingProps, expirationTime) {
+  debugger;
   var workInProgress = current.alternate;
   if (workInProgress === null) {
     // We use a double buffering pooling technique because we know that we'll
@@ -16503,6 +16505,7 @@ function workLoop(isAsync) {
 }
 
 function renderRoot(root, expirationTime, isAsync) {
+  debugger;
   !!isWorking ? invariant_1(false, 'renderRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.') : void 0;
   isWorking = true;
 
