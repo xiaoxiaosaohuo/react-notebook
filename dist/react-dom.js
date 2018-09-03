@@ -7953,6 +7953,7 @@ function updateDOMProperties(domElement, updatePayload, wasCustomComponentTag, i
 }
 
 function createElement$1(type, props, rootContainerElement, parentNamespace) {
+  debugger;
   var isCustomComponentTag = void 0;
 
   // We create tags in the namespace of their parent container, except HTML
@@ -9079,6 +9080,7 @@ function resetAfterCommit(containerInfo) {
 }
 
 function createInstance(type, props, rootContainerInstance, hostContext, internalInstanceHandle) {
+  debugger;
   var parentNamespace = void 0;
   {
     // TODO: take namespace into account when validating.
@@ -10274,6 +10276,7 @@ function createHostRootFiber(isAsync) {
 }
 
 function createFiberFromElement(element, mode, expirationTime) {
+  debugger;
   var owner = null;
   {
     owner = element._owner;
@@ -11279,6 +11282,7 @@ function ensureWorkInProgressQueueIsAClone(workInProgress, queue) {
 }
 
 function getStateFromUpdate(workInProgress, queue, update, prevState, nextProps, instance) {
+  debugger;
   switch (update.tag) {
     case ReplaceState:
       {
@@ -13211,6 +13215,7 @@ function ChildReconciler(shouldTrackSideEffects) {
   // itself. They will be added to the side-effect list as we pass through the
   // children and the parent.
   function reconcileChildFibers(returnFiber, currentFirstChild, newChild, expirationTime) {
+    debugger;
     // This function is not recursive.
     // If the top level item is an array, we treat it as a set of children,
     // not as a fragment. Nested arrays on the other hand will be treated as
@@ -13597,6 +13602,7 @@ function reconcileChildren(current, workInProgress, nextChildren) {
 }
 
 function reconcileChildrenAtExpirationTime(current, workInProgress, nextChildren, renderExpirationTime) {
+  debugger;
   if (current === null) {
     // If this is a fresh new component that hasn't been rendered yet, we
     // won't update its child set by applying minimal side-effects. Instead,
@@ -13865,8 +13871,10 @@ function updateHostRoot(current, workInProgress, renderExpirationTime) {
       // Otherwise reset hydration state in case we aborted and resumed another
       // root.
       resetHydrationState();
+      debugger;
       reconcileChildren(current, workInProgress, nextChildren);
     }
+    debugger;
     return workInProgress.child;
   }
   resetHydrationState();
@@ -16085,6 +16093,7 @@ function markLegacyErrorBoundaryAsFailed(instance) {
 }
 
 function commitRoot(finishedWork) {
+  debugger;
   isWorking = true;
   isCommitting$1 = true;
   startCommitTimer();
