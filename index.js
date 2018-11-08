@@ -1,21 +1,21 @@
 
   const mountNode = document.getElementById("root");
 
-  class ChildCmp extends React.Component {
-    render() {
-        return <div> {this.props.childMessage} </div>
+  const ChildCmp =({childMessage})=> {
+        return <div>{childMessage}</div>
     }
-}
 
 class ExampleApplication extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {message: 'no message'};
+        this.state = {
+            count: 0,
+            text:"notClicked"
+        };
     }
-
-    componentWillMount() {
-        //...
-        console.log("componentWillMount")
+    static getDerivedStateFromProps(){
+        console.log("getDerivedStateFromProps")
+        return null;
     }
 
     componentDidMount() {
@@ -30,36 +30,39 @@ class ExampleApplication extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, prevContext) {
-        //...
+        console.log("componentDidUpdate")
     }
 
-    componentWillReceiveProps(nextProps) {
-        //...
-    }
 
     componentWillUnmount() {
-        //...
+        console.log("componentWillUnmount")
     }
 
     onClickHandler() {
-        /* this.setState({ message: 'click state message' }); */
+        this.setState(prevState=>{
+            return { 
+                count: prevState.count+1,
+                text:"hasClicked" 
+            }
+        });
+        this.setState(prevState=>{
+            return { count: prevState.count+1 }
+        });
+
     }
 
     render() {
         debugger;
         return <div>
             <button onClick={this.onClickHandler.bind(this)}> set state button </button>
-            <ChildCmp childMessage={this.state.message} />
-            And some text as well!
+            <ChildCmp childMessage={this.state.count} />
+            {this.state.text}
         </div>
     }
 }
 debugger;
 ReactDOM.render(
-    <div className="contaier" style={{backgroundColor:"red"}}>
-        <h1 style={{color:"blue"}}>这是什么鬼啊</h1>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/600px-Google_%22G%22_Logo.svg.png"/>
-    </div>,
+    <ExampleApplication></ExampleApplication>,
     mountNode,
     function() {}
 );

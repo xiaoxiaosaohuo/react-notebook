@@ -8749,6 +8749,7 @@ function appendInitialChild(parentInstance, child) {
 }
 
 function finalizeInitialChildren(domElement, type, props, rootContainerInstance, hostContext) {
+  debugger;
   setInitialProperties(domElement, type, props, rootContainerInstance);
   return shouldAutoFocusHostComponent(type, props);
 }
@@ -16035,6 +16036,7 @@ function commitPassiveHookEffects(finishedWork) {
 }
 
 function commitLifeCycles(finishedRoot, current$$1, finishedWork, committedExpirationTime) {
+  debugger;
   switch (finishedWork.tag) {
     case FunctionComponent:
     case ForwardRef:
@@ -17283,6 +17285,7 @@ function resetStack() {
 }
 
 function commitAllHostEffects() {
+  debugger;
   while (nextEffect !== null) {
     {
       setCurrentFiber(nextEffect);
@@ -17374,6 +17377,7 @@ function commitBeforeMutationLifecycles() {
 }
 
 function commitAllLifeCycles(finishedRoot, committedExpirationTime) {
+  debugger;
   {
     ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings();
     ReactStrictModeWarnings.flushLegacyContextWarning();
@@ -17988,6 +17992,7 @@ function workLoop(isYieldy) {
 }
 
 function renderRoot(root, isYieldy, isExpired) {
+  debugger;
   !!isWorking ? invariant(false, 'renderRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.') : void 0;
 
   flushPassiveEffects();
@@ -19511,7 +19516,7 @@ ReactWork.prototype._onCommit = function () {
 
 function ReactRoot(container, isConcurrent, hydrate) {
   var root = createContainer(container, isConcurrent, hydrate);
-  this._internalRoot = root;
+  this._internalRoot = root;    
 }
 ReactRoot.prototype.render = function (children, callback) {
   var root = this._internalRoot;
