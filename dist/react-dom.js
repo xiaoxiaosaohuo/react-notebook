@@ -2218,6 +2218,7 @@ function interactiveUpdates(fn, a, b) {
 
 
 function setBatchingImplementation(batchedUpdatesImpl, interactiveUpdatesImpl, flushInteractiveUpdatesImpl) {
+  debugger;
   _batchedUpdatesImpl = batchedUpdatesImpl;
   _interactiveUpdatesImpl = interactiveUpdatesImpl;
   _flushInteractiveUpdatesImpl = flushInteractiveUpdatesImpl;
@@ -5027,6 +5028,7 @@ function dispatchInteractiveEvent(topLevelType, nativeEvent) {
 }
 
 function dispatchEvent(topLevelType, nativeEvent) {
+  debugger;
   if (!_enabled) {
     return;
   }
@@ -11137,6 +11139,7 @@ function ensureWorkInProgressQueueIsAClone(workInProgress, queue) {
 }
 
 function getStateFromUpdate(workInProgress, queue, update, prevState, nextProps, instance) {
+  debugger;
   switch (update.tag) {
     case ReplaceState:
       {
@@ -19041,10 +19044,12 @@ function onUncaughtError(error) {
 // TODO: Batching should be implemented at the renderer level, not inside
 // the reconciler.
 function batchedUpdates$1(fn, a) {
+  debugger;
   var previousIsBatchingUpdates = isBatchingUpdates;
   isBatchingUpdates = true;
   try {
     return fn(a);
+    debugger;
   } finally {
     isBatchingUpdates = previousIsBatchingUpdates;
     if (!isBatchingUpdates && !isRendering) {
@@ -19056,10 +19061,12 @@ function batchedUpdates$1(fn, a) {
 // TODO: Batching should be implemented at the renderer level, not inside
 // the reconciler.
 function unbatchedUpdates(fn, a) {
+  debugger;
   if (isBatchingUpdates && !isUnbatchingUpdates) {
     isUnbatchingUpdates = true;
     try {
       return fn(a);
+      debugger;
     } finally {
       isUnbatchingUpdates = false;
     }
@@ -19070,6 +19077,7 @@ function unbatchedUpdates(fn, a) {
 // TODO: Batching should be implemented at the renderer level, not within
 // the reconciler.
 function flushSync(fn, a) {
+  debugger;
   !!isRendering ? invariant(false, 'flushSync was called from inside a lifecycle method. It cannot be called when React is already rendering.') : void 0;
   var previousIsBatchingUpdates = isBatchingUpdates;
   isBatchingUpdates = true;
@@ -19082,6 +19090,7 @@ function flushSync(fn, a) {
 }
 
 function interactiveUpdates$1(fn, a, b) {
+  debugger;
   if (isBatchingInteractiveUpdates) {
     return fn(a, b);
   }
@@ -19099,7 +19108,9 @@ function interactiveUpdates$1(fn, a, b) {
   isBatchingInteractiveUpdates = true;
   isBatchingUpdates = true;
   try {
+    debugger;
     return fn(a, b);
+    debugger;
   } finally {
     isBatchingInteractiveUpdates = previousIsBatchingInteractiveUpdates;
     isBatchingUpdates = previousIsBatchingUpdates;

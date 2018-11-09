@@ -19,10 +19,20 @@ class ExampleApplication extends React.Component {
     }
 
     componentDidMount() {
-      console.log("componentDidMount")
-        /* setTimeout(()=> {
-            this.setState({ message: 'timeout state message' });
-        }, 1000); */
+        // debugger;
+        // this.setCount()
+        // console.log("componentDidMount")
+        
+        // setTimeout(()=> {
+            
+            new Promise((resolve)=>{
+                resolve()
+            }).then(()=>{
+                debugger;
+                this.setCount()
+            })
+            
+        // }, 2000); 
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -37,22 +47,38 @@ class ExampleApplication extends React.Component {
     componentWillUnmount() {
         console.log("componentWillUnmount")
     }
+    setCount = ()=>{
+        this.setState({
+            count:this.state.count+1
+        })
+        this.setState({
+            count:this.state.count+1,
+            text:"sdfjlsf"
+        })
+        this.setState({
+            count:this.state.count+1,
+            text:"2323234"
+        })
+    }
 
     onClickHandler() {
-        this.setState(prevState=>{
-            return { 
-                count: prevState.count+1,
-                text:"hasClicked" 
-            }
-        });
-        this.setState(prevState=>{
-            return { count: prevState.count+1 }
-        });
+        debugger;
+        this.setCount()
+        // this.setState(prevState=>{
+        //     return { 
+        //         count: prevState.count+1,
+        //         text:"hasClicked" 
+        //     }
+        // });
+        // this.setState(prevState=>{
+        //     return { count: prevState.count+1 }
+        // });
 
     }
 
     render() {
         debugger;
+        console.log("render")
         return <div>
             <button onClick={this.onClickHandler.bind(this)}> set state button </button>
             <ChildCmp childMessage={this.state.count} />
