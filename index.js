@@ -10,7 +10,7 @@ class ExampleApplication extends React.Component {
         super(props);
         this.state = {
             count: 0,
-            text:"notClicked"
+            show:false
         };
     }
     static getDerivedStateFromProps(){
@@ -25,14 +25,25 @@ class ExampleApplication extends React.Component {
         
         // setTimeout(()=> {
             
-            new Promise((resolve)=>{
-                resolve()
-            }).then(()=>{
-                debugger;
-                this.setCount()
-            })
+            // new Promise((resolve)=>{
+            //     resolve()
+            // }).then(()=>{
+            //     debugger;
+            //     this.setCount()
+            // })
             
         // }, 2000); 
+        let button = document.querySelector("button");
+        console.log(button)
+        button.addEventListener("click", function(e) {
+            e.stopPropagation();
+            alert(333);
+          }, false);
+        button.addEventListener("click", function() {
+            e.stopPropagation();
+          alert(222);
+        },true);
+        
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -53,7 +64,7 @@ class ExampleApplication extends React.Component {
         })
         this.setState({
             count:this.state.count+1,
-            text:"sdfjlsf"
+            show:"sdfjlsf"
         })
         this.setState({
             count:this.state.count+1,
@@ -61,7 +72,7 @@ class ExampleApplication extends React.Component {
         })
     }
 
-    onClickHandler() {
+    onClickHandler=()=> {
         debugger;
         this.setCount()
         // this.setState(prevState=>{
@@ -80,15 +91,15 @@ class ExampleApplication extends React.Component {
         debugger;
         console.log("render")
         return <div>
-            <button onClick={this.onClickHandler.bind(this)}> set state button </button>
+            <button onClick={this.onClickHandler}> set state button </button>
             <ChildCmp childMessage={this.state.count} />
-            {this.state.text}
+            {/* {this.state.text} */}
         </div>
     }
 }
 debugger;
 ReactDOM.render(
-    <ExampleApplication></ExampleApplication>,
+    <div className="test">测试<span>子元素</span></div>,
     mountNode,
     function() {}
 );
