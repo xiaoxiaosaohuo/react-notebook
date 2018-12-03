@@ -1,17 +1,20 @@
+import Hello from "./src/hooks/hello";
+const mountNode = document.getElementById("root");
 
-  const mountNode = document.getElementById("root");
-
-  const ChildCmp =({childMessage})=> {
+const ChildCmp =({childMessage})=> {
         return <div>{childMessage}</div>
     }
 
-class ExampleApplication extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             count: 0,
             text:"notClicked"
         };
+        this.onClickHandler = this.onClickHandler.bind(this);
+        this.start = null;
+        this.progress = 0;
     }
     static getDerivedStateFromProps(){
         console.log("getDerivedStateFromProps")
@@ -25,14 +28,33 @@ class ExampleApplication extends React.Component {
         
         // setTimeout(()=> {
             
-            new Promise((resolve)=>{
-                resolve()
-            }).then(()=>{
-                debugger;
-                this.setCount()
-            })
+            // new Promise((resolve)=>{
+            //     resolve()
+            // }).then(()=>{
+            //     debugger;
+            //     this.setCount()
+            // })
             
         // }, 2000); 
+        // const  step = (timestamp)=> {
+        //     if (!this.start) this.start = timestamp;
+        //     console.log(timestamp-this.start);
+        //     this.start = timestamp;
+        //     this.progress++;
+        //     if (this.progress < 20) {
+        //       window.requestAnimationFrame(step);
+        //     }
+        //   }
+          
+        //   window.requestAnimationFrame(step);
+        // this.requestIdleCallbackFuc()
+          
+    }
+    requestIdleCallbackFuc = ()=>{
+        window.requestIdleCallback((deadline)=>{
+            console.log(deadline);
+            console.log(deadline.timeRemaining())
+        })
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
@@ -48,21 +70,16 @@ class ExampleApplication extends React.Component {
         console.log("componentWillUnmount")
     }
     setCount = ()=>{
-        this.setState({
-            count:this.state.count+1
+        this.setState(prevState=>{
+            return{
+                count:prevState.count+1
+            }
         })
-        this.setState({
-            count:this.state.count+1,
-            text:"sdfjlsf"
-        })
-        this.setState({
-            count:this.state.count+1,
-            text:"2323234"
-        })
+
     }
 
     onClickHandler() {
-        debugger;
+    //    this.requestIdleCallbackFuc()
         this.setCount()
         // this.setState(prevState=>{
         //     return { 
@@ -77,18 +94,41 @@ class ExampleApplication extends React.Component {
     }
 
     render() {
-        debugger;
-        console.log("render")
         return <div>
-            <button onClick={this.onClickHandler.bind(this)}> set state button </button>
-            <ChildCmp childMessage={this.state.count} />
-            {this.state.text}
+            <button key="1" onClick={this.onClickHandler}>Update counter</button>
+            <span key="2">{this.state.count}</span>
+            
         </div>
+
     }
 }
-debugger;
+
+class App1 extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {count: 0};
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState((state) => {
+            return {count: state.count + 1};
+        });
+    }
+
+
+    render() {
+        return (<React.Fragment>
+            <button key="1" onClick={this.handleClick}>点我</button>
+            <span key="2">{this.state.count}</span>
+            <ChildCmp childMessage={this.state.count}></ChildCmp>
+            </React.Fragment>
+        )
+    }
+}
+// debugger;
 ReactDOM.render(
-    <ExampleApplication></ExampleApplication>,
+    <Hello></Hello>,
     mountNode,
     function() {}
 );

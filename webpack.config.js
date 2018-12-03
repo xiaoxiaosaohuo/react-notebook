@@ -73,7 +73,7 @@ module.exports = {
     resolve:{
     },
     plugins: [
-        new webpack.BannerPlugin("yhyh copyRight"),
+        // new webpack.BannerPlugin("yhyh copyRight"),
         // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/
         // )
         // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
