@@ -10,7 +10,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             count: 0,
-            text:"notClicked"
+            show:false
         };
         this.onClickHandler = this.onClickHandler.bind(this);
         this.start = null;
