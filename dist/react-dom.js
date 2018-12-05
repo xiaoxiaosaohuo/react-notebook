@@ -344,7 +344,7 @@ function recomputePluginOrdering() {
  * @private
  */
 function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
-  // debugger;
+  // 
   !!eventNameDispatchConfigs.hasOwnProperty(eventName) ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same event name, `%s`.', eventName) : void 0;
   eventNameDispatchConfigs[eventName] = dispatchConfig;
 
@@ -372,7 +372,7 @@ function publishEventForPlugin(dispatchConfig, pluginModule, eventName) {
  * @private
  */
 function publishRegistrationName(registrationName, pluginModule, eventName) {
-  // debugger;
+  // 
   !!registrationNameModules[registrationName] ? invariant(false, 'EventPluginHub: More than one plugin attempted to publish the same registration name, `%s`.', registrationName) : void 0;
   registrationNameModules[registrationName] = pluginModule;
   registrationNameDependencies[registrationName] = pluginModule.eventTypes[eventName].dependencies;
@@ -432,7 +432,7 @@ var possibleRegistrationNames = {};
  * @see {EventPluginHub.injection.injectEventPluginOrder}
  */
 function injectEventPluginOrder(injectedEventPluginOrder) {
-  debugger;
+  
   !!eventPluginOrder ? invariant(false, 'EventPluginRegistry: Cannot inject event plugin ordering more than once. You are likely trying to load more than one copy of React.') : void 0;
   // Clone the ordering so it cannot be dynamically mutated.
   eventPluginOrder = Array.prototype.slice.call(injectedEventPluginOrder);
@@ -450,7 +450,7 @@ function injectEventPluginOrder(injectedEventPluginOrder) {
  * @see {EventPluginHub.injection.injectEventPluginsByName}
  */
 function injectEventPluginsByName(injectedNamesToPlugins) {
-  debugger;
+  
   var isOrderingDirty = false;
   for (var pluginName in injectedNamesToPlugins) {
     if (!injectedNamesToPlugins.hasOwnProperty(pluginName)) {
@@ -1032,6 +1032,7 @@ function getLowestCommonAncestor(instA, instB) {
  * Simulates the traversal of a two-phase, capture/bubble event dispatch.
  */
 function traverseTwoPhase(inst, fn, arg) {
+  
   var path = [];
   while (inst) {
     path.push(inst);
@@ -1500,7 +1501,7 @@ function functionThatReturnsFalse() {
  * @param {DOMEventTarget} nativeEventTarget Target node.
  */
 function SyntheticEvent(dispatchConfig, targetInst, nativeEvent, nativeEventTarget) {
-  debugger;
+  
   {
     // these have a getter/setter for warnings
     delete this.nativeEvent;
@@ -2223,7 +2224,7 @@ function interactiveUpdates(fn, a, b) {
 
 
 function setBatchingImplementation(batchedUpdatesImpl, interactiveUpdatesImpl, flushInteractiveUpdatesImpl) {
-  debugger;
+  
   _batchedUpdatesImpl = batchedUpdatesImpl;
   _interactiveUpdatesImpl = interactiveUpdatesImpl;
   _flushInteractiveUpdatesImpl = flushInteractiveUpdatesImpl;
@@ -4757,7 +4758,7 @@ var eventTypes$4 = {};
 var topLevelEventsToDispatchConfig = {};
 
 function addEventTypeNameToConfig(_ref, isInteractive) {
-  // debugger;
+  // 
   var topEvent = _ref[0],
       event = _ref[1];
 
@@ -4893,7 +4894,7 @@ var SimpleEventPlugin = {
         EventConstructor = SyntheticEvent;
         break;
     }
-    debugger;
+    
     var event = EventConstructor.getPooled(dispatchConfig, targetInst, nativeEvent, nativeEventTarget);
     accumulateTwoPhaseDispatches(event);
     return event;
@@ -5020,7 +5021,7 @@ function trapBubbledEvent(topLevelType, element) {
  * @internal
  */
 function trapCapturedEvent(topLevelType, element) {
-  debugger;
+  
   if (!element) {
     return null;
   }
@@ -5036,7 +5037,7 @@ function dispatchInteractiveEvent(topLevelType, nativeEvent) {
 }
 
 function dispatchEvent(topLevelType, nativeEvent) {
-  debugger;
+  
   if (!_enabled) {
     return;
   }
@@ -5770,6 +5771,7 @@ var SelectEventPlugin = {
 /**
  * Inject modules for resolving DOM hierarchy and plugin ordering.
  */
+
 injection.injectEventPluginOrder(DOMEventPluginOrder);
 setComponentTree(getFiberCurrentPropsFromNode$1, getInstanceFromNode$1, getNodeFromInstance$1);
 
@@ -7556,7 +7558,7 @@ function trapClickOnNonInteractiveElement(node) {
 }
 
 function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProps, isCustomComponentTag) {
-  debugger;
+  
   for (var propKey in nextProps) {
     if (!nextProps.hasOwnProperty(propKey)) {
       continue;
@@ -8760,7 +8762,7 @@ function appendInitialChild(parentInstance, child) {
 }
 
 function finalizeInitialChildren(domElement, type, props, rootContainerInstance, hostContext) {
-  debugger;
+  
   setInitialProperties(domElement, type, props, rootContainerInstance);
   return shouldAutoFocusHostComponent(type, props);
 }
@@ -11148,7 +11150,7 @@ function ensureWorkInProgressQueueIsAClone(workInProgress, queue) {
 }
 
 function getStateFromUpdate(workInProgress, queue, update, prevState, nextProps, instance) {
-  debugger;
+  
   switch (update.tag) {
     case ReplaceState:
       {
@@ -12487,6 +12489,7 @@ var classComponentUpdater = {
 };
 
 function checkShouldComponentUpdate(workInProgress, ctor, oldProps, newProps, oldState, newState, nextContext) {
+  
   var instance = workInProgress.stateNode;
   if (typeof instance.shouldComponentUpdate === 'function') {
     startPhaseTimer(workInProgress, 'shouldComponentUpdate');
@@ -12878,6 +12881,7 @@ function resumeMountClassInstance(workInProgress, ctor, newProps, renderExpirati
 
 // Invokes the update life-cycles and returns false if it shouldn't rerender.
 function updateClassInstance(current, workInProgress, ctor, newProps, renderExpirationTime) {
+  
   var instance = workInProgress.stateNode;
 
   var oldProps = workInProgress.memoizedProps;
@@ -15557,7 +15561,7 @@ if (supportsMutation) {
     }
   };
   updateHostContainer = function (workInProgress) {
-    debugger;
+    
     var portalOrRoot = workInProgress.stateNode;
     var childrenUnchanged = workInProgress.firstEffect === null;
     if (childrenUnchanged) {
@@ -16049,7 +16053,7 @@ function commitPassiveHookEffects(finishedWork) {
 }
 
 function commitLifeCycles(finishedRoot, current$$1, finishedWork, committedExpirationTime) {
-  debugger;
+  
   switch (finishedWork.tag) {
     case FunctionComponent:
     case ForwardRef:
@@ -17298,7 +17302,7 @@ function resetStack() {
 }
 
 function commitAllHostEffects() {
-  debugger;
+  
   while (nextEffect !== null) {
     {
       setCurrentFiber(nextEffect);
@@ -17390,7 +17394,7 @@ function commitBeforeMutationLifecycles() {
 }
 
 function commitAllLifeCycles(finishedRoot, committedExpirationTime) {
-  debugger;
+  
   {
     ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings();
     ReactStrictModeWarnings.flushLegacyContextWarning();
@@ -17829,7 +17833,7 @@ function completeUnitOfWork(workInProgress) {
         // Skip both NoWork and PerformedWork tags when creating the effect list.
         // PerformedWork effect is read by React DevTools but shouldn't be committed.
         if (effectTag > PerformedWork) {
-          debugger;
+          
           if (returnFiber.lastEffect !== null) {
             returnFiber.lastEffect.nextEffect = workInProgress;
           } else {
@@ -18006,7 +18010,7 @@ function workLoop(isYieldy) {
 }
 
 function renderRoot(root, isYieldy, isExpired) {
-  debugger;
+  
   !!isWorking ? invariant(false, 'renderRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.') : void 0;
 
   flushPassiveEffects();
@@ -19055,12 +19059,12 @@ function onUncaughtError(error) {
 // TODO: Batching should be implemented at the renderer level, not inside
 // the reconciler.
 function batchedUpdates$1(fn, a) {
-  debugger;
+  
   var previousIsBatchingUpdates = isBatchingUpdates;
   isBatchingUpdates = true;
   try {
     return fn(a);
-    debugger;
+    
   } finally {
     isBatchingUpdates = previousIsBatchingUpdates;
     if (!isBatchingUpdates && !isRendering) {
@@ -19072,12 +19076,12 @@ function batchedUpdates$1(fn, a) {
 // TODO: Batching should be implemented at the renderer level, not inside
 // the reconciler.
 function unbatchedUpdates(fn, a) {
-  debugger;
+  
   if (isBatchingUpdates && !isUnbatchingUpdates) {
     isUnbatchingUpdates = true;
     try {
       return fn(a);
-      debugger;
+      
     } finally {
       isUnbatchingUpdates = false;
     }
@@ -19088,7 +19092,7 @@ function unbatchedUpdates(fn, a) {
 // TODO: Batching should be implemented at the renderer level, not within
 // the reconciler.
 function flushSync(fn, a) {
-  debugger;
+  
   !!isRendering ? invariant(false, 'flushSync was called from inside a lifecycle method. It cannot be called when React is already rendering.') : void 0;
   var previousIsBatchingUpdates = isBatchingUpdates;
   isBatchingUpdates = true;
@@ -19101,7 +19105,6 @@ function flushSync(fn, a) {
 }
 
 function interactiveUpdates$1(fn, a, b) {
-  debugger;
   if (isBatchingInteractiveUpdates) {
     return fn(a, b);
   }
@@ -19119,9 +19122,8 @@ function interactiveUpdates$1(fn, a, b) {
   isBatchingInteractiveUpdates = true;
   isBatchingUpdates = true;
   try {
-    debugger;
     return fn(a, b);
-    debugger;
+    
   } finally {
     isBatchingInteractiveUpdates = previousIsBatchingInteractiveUpdates;
     isBatchingUpdates = previousIsBatchingUpdates;
