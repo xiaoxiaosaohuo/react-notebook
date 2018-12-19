@@ -1,4 +1,5 @@
-import Hello from "./src/hooks/hello";
+// import Hello from "./src/hooks/hello";
+// import ContextButton from "./src/context";
 const mountNode = document.getElementById("root");
 
 const ChildCmp =({childMessage})=> {
@@ -111,9 +112,16 @@ class App1 extends React.Component {
     }
 
     handleClick() {
+        debugger;
         this.setState((state) => {
             return {count: state.count + 1};
         });
+        this.setState((state) => {
+            return {count: state.count + 2};
+        });
+    }
+    componentDidUpdate(){
+        
     }
 
 
@@ -121,14 +129,13 @@ class App1 extends React.Component {
         return (<React.Fragment>
             <button key="1" onClick={this.handleClick}>点我</button>
             <span key="2">{this.state.count}</span>
-            <ChildCmp childMessage={this.state.count}></ChildCmp>
             </React.Fragment>
         )
     }
 }
-// debugger;
+debugger;
 ReactDOM.render(
-    <Hello></Hello>,
+    <App1></App1>,
     mountNode,
     function() {}
 );
