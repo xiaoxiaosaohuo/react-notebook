@@ -1,141 +1,134 @@
-// import Hello from "./src/hooks/hello";
-// import ContextButton from "./src/context";
+// import React from "react";
+// import ReactDOM from "react-dom";
 const mountNode = document.getElementById("root");
 
-const ChildCmp =({childMessage})=> {
-        return <div>{childMessage}</div>
+const ChildCmp = ({ msg})=> {
+  return <div>{msg}</div>
     }
+const data = [
+    {name:"liutao",key:11},
+    {name:"jinxin",key:33},
+    {name:"刘德华",key:22}
+]
+class ExampleApplication extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0, show: false, dataSource: data, inputvalue:"" };
+  }
+  static getDerivedStateFromProps() {
+    console.log("getDerivedStateFromProps");
+    return null;
+  }
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            count: 0,
-            show:false
-        };
-        this.onClickHandler = this.onClickHandler.bind(this);
-        this.start = null;
-        this.progress = 0;
-    }
-    static getDerivedStateFromProps(){
-        console.log("getDerivedStateFromProps")
-        return null;
-    }
+  componentDidMount() {
+    // this.setCount();
+    // debugger;
+    // this.setCount()
+    // console.log("componentDidMount")
+    // setTimeout(()=> {
+    // new Promise((resolve)=>{
+    //     resolve()
+    // }).then(()=>{
+    //     // debugger;
+    //     this.setCount()
+    // })
+    // }, 2000);
+    // let button = document.querySelector("button");
+    // console.log(button)
+    // button.addEventListener("click", function(e) {
+    //     e.stopPropagation();
+    //     alert(333);
+    //   }, false);
+    // button.addEventListener("click", function() {
+    //     e.stopPropagation();
+    //   alert(222);
+    // },true);
+  }
 
-    componentDidMount() {
-        // debugger;
-        // this.setCount()
-        // console.log("componentDidMount")
-        
-        // setTimeout(()=> {
-            
-            // new Promise((resolve)=>{
-            //     resolve()
-            // }).then(()=>{
-            //     debugger;
-            //     this.setCount()
-            // })
-            
-        // }, 2000); 
-        // const  step = (timestamp)=> {
-        //     if (!this.start) this.start = timestamp;
-        //     console.log(timestamp-this.start);
-        //     this.start = timestamp;
-        //     this.progress++;
-        //     if (this.progress < 20) {
-        //       window.requestAnimationFrame(step);
-        //     }
-        //   }
-          
-        //   window.requestAnimationFrame(step);
-        // this.requestIdleCallbackFuc()
-          
-    }
-    requestIdleCallbackFuc = ()=>{
-        window.requestIdleCallback((deadline)=>{
-            console.log(deadline);
-            console.log(deadline.timeRemaining())
-        })
-    }
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return true;
+  }
 
-    shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return true;
-    }
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    console.log("componentDidUpdate");
+    // if (prevState.count === 0) {
+    //   debugger;
+    //   this.setCount();
+    // }
+  }
 
-    componentDidUpdate(prevProps, prevState, prevContext) {
-        console.log("componentDidUpdate")
-    }
+  componentWillUnmount() {
+    console.log("componentWillUnmount");
+  }
+  setCount = () => {
+    this.setState({
+      count: this.state.count + 1
+    });
+    this.setState({
+      count: this.state.count + 1,
+      show: "sdfjlsf"
+    });
+    this.setState({
+      count: this.state.count + 2,
+      text: "2323234"
+    });
+  };
+  setCount1 = () => {
+    this.setState(prevState => {
+      return { count: prevState.count + 1 };
+    });
+  };
+  onChage = (e)=>{
+    this.setState({
+      inputvalue:e.target.value
+    })
+  }
+  onClickHandler = () => {
+    this.setCount1();
+    // Promise.resolve(1)
+    // .then(json=>{
+    //   console.log(json)
+    //   this.setCount();
+    // })
+    // this.setCount()
+    // this.setState(prevState => {
+    //     const json = prevState.dataSource.map((item,index)=>{
+    //         return { ...item, name: item.name + index +"改变"}
+    //     }).sort((a,b)=>{return Math.random()-0.5});
+    //   return {
+    //       dataSource: json,
+    //       count: prevState.count+1
+    //   }
+    // });
+  };
+  onItemClick = () => {
+    this.setState(prevState => {
+      return { count: prevState.count + 1 };
+    });
+  };
 
-
-    componentWillUnmount() {
-        console.log("componentWillUnmount")
-    }
-    setCount = ()=>{
-        this.setState(prevState=>{
-            return{
-                count:prevState.count+1
-            }
-        })
-
-    }
-
-    onClickHandler() {
-    //    this.requestIdleCallbackFuc()
-        this.setCount()
-        // this.setState(prevState=>{
-        //     return { 
-        //         count: prevState.count+1,
-        //         text:"hasClicked" 
-        //     }
-        // });
-        // this.setState(prevState=>{
-        //     return { count: prevState.count+1 }
-        // });
-
-    }
-
-    render() {
-        return <div>
-            <button key="1" onClick={this.onClickHandler}>Update counter</button>
-            <span key="2">{this.state.count}</span>
-            
-        </div>
-
-    }
+  render() {
+    const { dataSource, count, inputvalue } = this.state;
+    const classp = count===1?"red-p":"blue-p"
+    console.log(this)
+    return <div>
+        <button onClick={this.onClickHandler} >set state button </button>
+      <ChildCmp msg={count}></ChildCmp>
+        {/* {count === 0 ? <span>type要变化</span> : <h1>变化后的</h1>} */}
+      {/* <input onChange={this.onChage} value={inputvalue}/> */}
+        {/* {dataSource.map(item => {
+          return (
+            <h1 key={item.key} >
+              {item.name}
+            </h1>
+          );
+        })} */}
+      {/* <p style={{ color: "red" }} className={classp} key={count}>{count}</p> */}
+      </div>;
+  }
 }
-
-class App1 extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {count: 0};
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        debugger;
-        this.setState((state) => {
-            return {count: state.count + 1};
-        });
-        this.setState((state) => {
-            return {count: state.count + 2};
-        });
-    }
-    componentDidUpdate(){
-        
-    }
-
-
-    render() {
-        return (<React.Fragment>
-            <button key="1" onClick={this.handleClick}>点我</button>
-            <span key="2">{this.state.count}</span>
-            </React.Fragment>
-        )
-    }
-}
-debugger;
 ReactDOM.render(
-    <App1></App1>,
+    <ExampleApplication><ExampleApplication/></ExampleApplication>,
     mountNode,
     function() {}
 );
