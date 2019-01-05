@@ -10,17 +10,42 @@ export default class Toggle extends React.Component {
     static defaultProps = {
         initialOn: false,
         onReset: () => { },
+        stateReducer: (state, changes) => changes,
     }
-    toggle = () =>{
-        this.setState(({ on }) => ({ on: !on }),()=>{
-            this.props.onToggle(this.state.on);
-        });
+    static stateChangeTypes = {
+        reset: '_reset_',
+        toggle: '_toggle_',
     }
-    reset = () =>
-        this.setState(this.initialState, () =>
-            this.props.onReset(this.state.on)
-    )
-    getTogglerProps = ({ onClick, ...props}) => {
+    toggle = ({ type = Toggle.stateChangeTypes.toggle}={}) =>{
+        // debugger;
+        this.internalSetState(
+            ({ on }) => ({ on: !on, type: type }),
+            () => this.props.onToggle(this.state.on),
+        )
+    }
+    
+    reset = () =>{
+        this.internalSetState(
+            { ...this.initialState, type: Toggle.stateChangeTypes.reset },
+          () => this.props.onReset(this.state.on)
+        );
+    }
+    internalSetState(changes, callback) {
+        this.setState(state => {
+            const changesObject =
+                typeof changes === 'function' ? changes(state) : changes
+
+            const reducedChanges = this.props.stateReducer(
+                state,
+                changesObject,
+            )||{}
+
+            const { type: ignoredType, ...onlyChanges } = reducedChanges
+            return Object.keys(onlyChanges).length ? onlyChanges : null
+        }, callback)
+    }
+        
+    getTogglerProps = ({ onClick, ...props}={}) => {
         return {
             'aria-pressed': this.state.on,
             onClick: callAll(onclick, this.toggle),
@@ -31,7 +56,8 @@ export default class Toggle extends React.Component {
         return this.props.children({
             on: this.state.on,
             getTogglerProps: this.getTogglerProps,
-            reset: this.reset
+            reset: this.reset,
+            toggle: this.toggle,
         });
     }
 }
