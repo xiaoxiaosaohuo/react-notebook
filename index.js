@@ -1,6 +1,6 @@
 
 const mountNode = document.getElementById("root");
-import Toggle from './src/components/toggle';
+import Toggle,{Switch} from './src/components/toggle';
 class App extends React.Component {
   constructor(props) {
       super(props);
@@ -9,12 +9,26 @@ class App extends React.Component {
     render() {
       return (
         <div style={{ width: 500 }}>
-          <Toggle onToggle={this.onToggle}>
-            <Toggle.On>The button is on</Toggle.On>
-            <Toggle.Off>The button isoff</Toggle.Off>
-            <div>
-              <Toggle.Button />
-            </div>
+          <Toggle 
+          onToggle={this.onToggle}
+            initialOn={true}
+          onReset={(...args) => console.log('onReset', ...args)}
+          >
+            {({ on, reset,getTogglerProps }) => {
+              return <div>
+                  {on ? "The button is on" : "The button is off"}
+                  <Switch on={on} {...getTogglerProps({ on })} />
+                  <hr />
+                  <button {...getTogglerProps({
+                      "aria-label": "custom-button",
+                      id: "custom-button-id",
+                      onClick: this.onToggle
+                    })}>
+                    {on ? "on" : "off"}
+                  </button>
+                  <button onClick={reset} >reset</button>
+                </div>;
+            }}
           </Toggle>
         </div>
       )
