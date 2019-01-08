@@ -7,7 +7,7 @@ const INPUT = [
 // Example Output:
 // [[0,4],[10,11],[16,23]]
 
-const constructSchedule = (scheduleSlots = [], totalHours = 24) => {
+const constructSchedule = (scheduleSlots = [], totalHours = 23) => {
     if (scheduleSlots.length === 0) {
         return [];
     }
