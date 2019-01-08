@@ -1,6 +1,7 @@
 
 const mountNode = document.getElementById("root");
 import Toggle, { Switch } from './src/components/toggle';
+import Marquee from './src/components/marquee/usage';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -67,6 +68,7 @@ class App extends React.Component {
 						</div>;
 					}}
 				</Toggle>
+				<Marquee></Marquee>
 			</div>
 		)
 	}
