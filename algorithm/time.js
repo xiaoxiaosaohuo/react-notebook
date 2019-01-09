@@ -12,16 +12,10 @@ const constructSchedule = (scheduleSlots = [], totalHours = 23) => {
         return [];
     }
 
-    let scheduleList = [];
-
-    for (let i = 0; i < scheduleSlots.length; i++) {
-        for (let j = 0; j < scheduleSlots[i].length; j++) {
-            let slot = scheduleSlots[i][j];
-
-            scheduleList.push(slot);
-        }
-    }
-
+    let scheduleList = scheduleSlots.reduce((prev, cur) => {
+      return cur.concat(prev);
+    }, []);
+    
     // sort schedule list by start time and then end time
     scheduleList.sort(
         (aSlot, bSlot) => aSlot[0] - bSlot[0] || aSlot[1] - bSlot[1]
@@ -37,7 +31,7 @@ const constructSchedule = (scheduleSlots = [], totalHours = 23) => {
         let [startTime, endTime] = slot;
 
         if (counter < startTime) {
-            counter++;
+            counter = startTime;
         } else {
             if (counter !== lastStart) {
                 slotsQueue.push([lastStart, counter]);
