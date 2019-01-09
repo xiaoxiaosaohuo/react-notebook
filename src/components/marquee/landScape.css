@@ -1,0 +1,68 @@
+.box-landscape {
+    width: 100%;
+    position: relative;
+    height: 50px;
+    border: 1px solid red;
+    font-size: 18px;
+    color: #323232;
+    line-height: 50px;
+}
+
+.botton {
+    font-size: 16px;
+    line-height: 40px;
+    width: 100px;
+    background-color: #ccc;
+    display: inline-block;
+    margin: 10px 10px 10px;
+    text-align: center;
+}
+
+.box-vertical {
+    width: 100%;
+    height: 240px;
+    border: 1px solid red;
+    position: relative;
+    font-size: 18px;
+    color: #323232;
+}
+
+.type-title {
+    font-size: 20px;
+    color: #323232;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.react-marquee-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.react-marquee-box .marquee-landscape-wrap {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.react-marquee-box .marquee-landscape-wrap .marquee-landscape-item {
+    float: left;
+    height: 100%;
+    white-space: nowrap;
+}
+
+.react-marquee-box .marquee-landscape-wrap .marquee-landscape-item .marquee-landscape-txt {
+    padding: 0 10px;
+    white-space: nowrap;
+    display: inline-block;
+    height: 100%;
+}

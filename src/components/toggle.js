@@ -1,59 +1,67 @@
 
 import './index.css';
-const ToggleContext = React.createContext({
-    on: false,
-    toggle: () => {}
-});
-function ToggleConsumer(props) {
-    return <ToggleContext.Consumer>
-        {context => {
-            console.log(context)
-            if (!context) {
-
-                throw new Error(
-                    'Toggle compound components must be rendered within the toggle component'
-                )
-            }
-            return props.children(context)
-        }}
-      </ToggleContext.Consumer>;
-}
+const callAll = (...fns) => (...args) => fns.forEach(fn => fn && fn(...args));
 export default class Toggle extends React.Component {
     constructor(props){
         super(props);
-        this.state = { on: false, toggle: this.toggle };
+        this.state = this.initialState;
     }
-    static On = ({ children }) => (
-        <ToggleConsumer>
-            {({on})=>on?children:null}
-        </ToggleConsumer>
-    );
-    static Off = ({ children }) => (
-        <ToggleConsumer>
-            {({ on }) => on ? null : children}
-        </ToggleConsumer>
-    )
-    static Button = (props) => (
-        <ToggleConsumer>
-            {({on,toggle})=>(
-                <Switch on={on} onClick={toggle} {...props} />
-            )}
-        </ToggleConsumer>
+    initialState = { on: this.props.initialOn }
+    static defaultProps = {
+        initialOn: false,
+        onReset: () => { },
+        stateReducer: (state, changes) => changes,
+    }
+    static stateChangeTypes = {
+        reset: '_reset_',
+        toggle: '_toggle_',
+    }
+    toggle = ({ type = Toggle.stateChangeTypes.toggle}={}) =>{
+        // debugger;
+        this.internalSetState(
+            ({ on }) => ({ on: !on, type: type }),
+            () => this.props.onToggle(this.state.on),
+        )
+    }
+    
+    reset = () =>{
+        this.internalSetState(
+            { ...this.initialState, type: Toggle.stateChangeTypes.reset },
+          () => this.props.onReset(this.state.on)
+        );
+    }
+    internalSetState(changes, callback) {
+        this.setState(state => {
+            const changesObject =
+                typeof changes === 'function' ? changes(state) : changes
+
+            const reducedChanges = this.props.stateReducer(
+                state,
+                changesObject,
+            )||{}
+
+            const { type: ignoredType, ...onlyChanges } = reducedChanges
+            return Object.keys(onlyChanges).length ? onlyChanges : null
+        }, callback)
+    }
         
-    );
-    toggle = () =>{
-        this.setState(({ on }) => ({ on: !on }),()=>{
-            this.props.onToggle(this.state.on);
+    getTogglerProps = ({ onClick, ...props}={}) => {
+        return {
+            'aria-pressed': this.state.on,
+            onClick: callAll(onclick, this.toggle),
+            ...props,
+        }
+    } 
+    render() {
+        return this.props.children({
+            on: this.state.on,
+            getTogglerProps: this.getTogglerProps,
+            reset: this.reset,
+            toggle: this.toggle,
         });
     }
-        
-    render() {
-        return <ToggleContext.Provider value={this.state}>
-            {this.props.children}
-          </ToggleContext.Provider>;
-    }
 }
-const Switch = ({ on, className = '', ...props })=> {
+export const Switch = ({ on, className = '', ...props })=> {
     return (
         <div className="toggle">
             <input
