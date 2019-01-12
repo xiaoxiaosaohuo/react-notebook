@@ -10,7 +10,8 @@ class App extends React.Component {
     
       this.state = {
         theme: themes.light,
-        toggleTheme: this.toggleTheme,
+		toggleTheme: this.toggleTheme,
+		name:"jinxin"
       };
   }
   toggleTheme = () => {
@@ -18,19 +19,17 @@ class App extends React.Component {
       theme:
         state.theme === themes.dark
           ? themes.light
-          : themes.dark,
+		  : themes.dark,
+		name:state.name==="siven"?"jinxin":"siven"
     }));
   }
   render() {
-    // The ThemedButton button inside the ThemeProvider
-    // uses the theme from state while the one outside uses
-    // the default dark theme
+    console.log(ThemeContext.Provider);
     return (
         <ThemeContext.Provider value={this.state}>
-            <UserContext.Provider value={{name:"jinxin"}}>
-                 <Content />
+            <UserContext.Provider value={{name:this.state.name}}>
+              <Content />
             </UserContext.Provider>
-           
       </ThemeContext.Provider>
     );
   }

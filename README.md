@@ -1,6 +1,3 @@
-## React 学习项目
-
-学习笔记见 
+## React 学习
 
 https://github.com/jinxin479/Note
-

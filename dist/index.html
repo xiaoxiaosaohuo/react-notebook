@@ -24,43 +24,6 @@
 </head>
 <body>
     <div id="root"></div>
-    <button onclick="onclick">点我</button>
-    <!-- <script src="./index_bundle.js"></script> -->
-    <script>
-        var throttle = function (func, wait, options) {
-                var context, args, result;
-                var timeout = null;
-                var previous = 0;
-                if (!options) options = {};
-                var later = function () {
-                    previous = options.leading === false ? 0 : Date.now();
-                    timeout = null;
-                    result = func.apply(context, args);
-                    if (!timeout) context = args = null;
-                };
-                return function () {
-                    var now = Date.now();
-                    
-                    if (!previous && options.leading === false) previous = now;
-                    var remaining = wait - (now - previous);
-                    context = this;
-                    args = arguments;
-                    console.log(remaining,previous,options)
-                    if (remaining <= 0 || remaining > wait) {
-                        clearTimeout(timeout);
-                        timeout = null;
-                        previous = now;
-                        result = func.apply(context, args);
-                        if (!timeout) context = args = null;
-                    } else if (!timeout && options.trailing !== false) {
-                        timeout = setTimeout(later, remaining);
-                    }
-                    return result;
-                };
-            };
-            var onclick = throttle(function(){
-                console.log("3333")
-            },2000)
-    </script>
+    <script src="./index_bundle.js"></script>
 </body>
 </html>

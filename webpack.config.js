@@ -10,7 +10,7 @@ module.exports = {
     },
     output: {
         filename: '[name]_bundle.js',
-        path:path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "dist")
     },
     devServer: {
         contentBase: path.join(__dirname, "dist"),
@@ -28,7 +28,7 @@ module.exports = {
                         presets: [
                             "es2015", "stage-0", "react", "env"
                         ],
-                        "plugins": ["transform-object-rest-spread", "transform-decorators-legacy", "transform-class-properties",["import", { libraryName: "antd-mobile", style: "css" }]]
+                        "plugins": ["transform-object-rest-spread", "transform-decorators-legacy", "transform-class-properties", ["import", { libraryName: "antd-mobile", style: "css" }]]
                     }
                 },
                 exclude: /node_modules/
@@ -70,7 +70,7 @@ module.exports = {
             }
         ]
     },
-    resolve:{
+    resolve: {
     },
     plugins: [
         // new webpack.BannerPlugin("yhyh copyRight"),
