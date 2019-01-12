@@ -1,0 +1,22 @@
+.container {
+    position: relative;
+    background: red;
+    /*   text-align:center; */
+    display: inline-block;
+}
+
+.cirlce {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(20px, 30px);
+    background-repeat: no-repeat;
+    background-image: url('https://unsplash.it/1600/1200?image=1050')
+}
+
+.hide {
+    display: none;
+}
