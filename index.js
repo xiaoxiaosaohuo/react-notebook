@@ -1,19 +1,12 @@
-
 const mountNode = document.getElementById("root");
-// import ContextUsage from './src/context';
-import SelectTickets from './src/counter';
+import ContextUsage from "./src/context";
+// import SelectTickets from './src/counter';
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	render(){
-		return(
-			<SelectTickets></SelectTickets>
-		)
-	}
-	
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <ContextUsage />;
+  }
 }
-ReactDOM.render(
-	<App/>,
-	mountNode
-);
+ReactDOM.render(<App />, mountNode);
