@@ -10,7 +10,7 @@ class App extends React.Component {
     this.state = {
       theme: themes.light,
       toggleTheme: this.toggleTheme,
-      name: "jinxin"
+      name: "jinxin sdf"
     };
   }
   toggleTheme = () => {
@@ -20,7 +20,7 @@ class App extends React.Component {
     }));
   };
   render() {
-    console.log(ThemeContext.Provider);
+    // console.log(ThemeContext.Provider);
     return (
       <ThemeContext.Provider value={this.state}>
         <UserContext.Provider value={{ name: this.state.name }}>
