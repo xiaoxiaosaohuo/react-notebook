@@ -10,6 +10,7 @@
     "deploy": "node ./server/index.js"
   },
   "dependencies": {
+    "ajv": "6.8.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
@@ -41,6 +42,7 @@
     "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
+    "raven-js": "^3.27.0",
     "react": "16.8.0-alpha.0",
     "react-dom": "16.8.0-alpha.0",
     "strict-uri-encode": "^2.0.0",
@@ -49,7 +51,6 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
-    "ajv": "6.8.1"
+    "webpack-dev-server": "^3.1.14"
   }
 }
