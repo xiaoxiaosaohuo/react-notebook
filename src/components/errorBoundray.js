@@ -1,4 +1,10 @@
 import React from "react";
+import * as Sentry from "@sentry/browser";
+// Sentry.init({
+//  dsn: "https://d6910c08cf8a4ac1a21b293e878155fa@sentry.io/1390717"
+// });
+// should have been called before using it here
+// ideally before even rendering your react app
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -11,6 +17,12 @@ class ErrorBoundary extends React.Component {
     this.setState({
       error: error,
       errorInfo: errorInfo
+    });
+    Sentry.withScope(scope => {
+      Object.keys(errorInfo).forEach(key => {
+        scope.setExtra(key, errorInfo[key]);
+      });
+      Sentry.captureException(error);
     });
     // You can also log error messages to an error reporting service here
   }
