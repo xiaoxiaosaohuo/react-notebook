@@ -18293,7 +18293,7 @@ function performUnitOfWork(workInProgress) {
 }
 
 function workLoop(isYieldy) {
-  debugger;
+  // debugger;
   if (!isYieldy) {
     // Flush work without yielding
     while (nextUnitOfWork !== null) {

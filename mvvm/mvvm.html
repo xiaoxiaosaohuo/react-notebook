@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>mvvm</title>
+  <link href="css.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="name">
+    <p>{{ getHello }}</p>
+    <div>
+      <span>i的值为：</span>
+      <span v-text="i"></span>
+    </div>
+    <button v-on:click="clickBtn">执行i++</button>
+    <pre>{{ obj }}</pre>
+    <div>
+      <span>obj.b:</span>
+      <span>{{ obj.b }}</span>
+    </div>
+    <button v-on:click="changeObjB">修改obj.b</button>
+  </div>
+
+  <script src="util.js"></script>
+  <script src="dep.js"></script>
+  <script src="observe.js"></script>
+  <script src="watcher.js"></script>
+  <script src="compile.js"></script>
+  <script src="mvvm.js"></script>
+  <script>
+    const vm = new Mvvm({
+      el: '#app',
+      data() {
+        return {
+          name: 'nashaofu',
+          i: 0,
+          obj: {
+            a: 1,
+            b: 2
+          }
+        }
+      },
+      computed: {
+        getHello() {
+          return 'Hello ' + this.name + ' !';
+        }
+      },
+      watch: {
+        i(nVal, oVal) {
+          console.log(nVal, oVal)
+        },
+        'obj.b': (nVal, oVal) => {
+          console.log('obj.b:', nVal, oVal)
+        }
+      },
+      methods: {
+        clickBtn() {
+          this.i++
+        },
+        changeObjB() {
+          this.obj.b++
+          this.obj = this.obj
+        }
+      }
+    })
+    console.log(vm)
+  </script>
+</body>
+</html>

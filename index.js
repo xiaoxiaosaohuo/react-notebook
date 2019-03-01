@@ -1,4 +1,4 @@
-import ContextUsage from "./src/context";
+import Hello from "./src/hooks/hello";
 import Raven from "raven-js";
 import { sentry_url, logException } from "./src/mointor";
 const mountNode = document.getElementById("root");
@@ -14,10 +14,10 @@ class App extends React.Component {
     super(props);
   }
   render() {
-    logException(new Error("download failed"), {
-      email: "jinxin479@126.com"
-    });
-    return <ContextUsage />;
+    // logException(new Error("download failed"), {
+    //   email: "jinxin479@126.com"
+    // });
+    return <Hello/>;
   }
 }
 ReactDOM.render(<App />, mountNode);
