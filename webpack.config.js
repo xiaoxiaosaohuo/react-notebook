@@ -16,7 +16,7 @@ module.exports = {
         contentBase: path.join(__dirname, "dist"),
         historyApiFallback: true,
         inline: true,
-        port: '3001'
+        port: '3002'
     },
     module: {
         rules: [
