@@ -23,7 +23,21 @@
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div id="root">
+        
+    </div>
+    <div id="div">点我</div>
     <script src="assets/index_bundle.js"></script>
+    <script>
+    var div = document.querySelector("#div");
+        div.onclick = function () {
+            console.log("click!");
+        }
+        div.ontouchstart = function (ev) {
+            console.log("touchstart!", ev);
+        }
+
+    
+    </script>
 </body>
 </html>
