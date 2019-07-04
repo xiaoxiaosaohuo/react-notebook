@@ -35,9 +35,19 @@ function Content() {
   return (
     <div>
       <ThemeTogglerButton />
-      <User />
+      <Indirection>
+        <User />
+      </Indirection>
     </div>
   );
 }
 
+class Indirection extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+  render() {
+    return this.props.children;
+  }
+}
 export default App;

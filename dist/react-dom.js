@@ -11911,6 +11911,8 @@ var warnForMissingKey = function (child) {};
 var isArray = Array.isArray;
 
 function coerceRef(returnFiber, current$$1, element) {
+  debugger;
+  debugger;
   var mixedRef = element.ref;
   if (mixedRef !== null && typeof mixedRef !== 'function' && typeof mixedRef !== 'object') {
     {

@@ -26,9 +26,11 @@ module.exports = {
                     loader: "babel-loader",
                     options: {
                         presets: [
-                            "es2015", "stage-0", "react", "env"
+                            '@babel/preset-env',"@babel/preset-react",
                         ],
-                        "plugins": ["transform-object-rest-spread", "transform-decorators-legacy", "transform-class-properties", ["import", { libraryName: "antd-mobile", style: "css" }]]
+                        "plugins": [
+                             "@babel/plugin-syntax-dynamic-import"
+                        ]
                     }
                 },
                 exclude: /node_modules/
