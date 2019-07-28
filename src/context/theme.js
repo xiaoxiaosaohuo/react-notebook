@@ -8,8 +8,12 @@ export const themes = {
       background: 'red',
     },
   };
+  const calculateChangedBits = (currentValue, nextValue) =>
+  nextValue.theme.background === 'red' ? 0b10 : 0b00;
   debugger;
   export const ThemeContext = React.createContext(
-    themes.dark // default value
+    themes.dark, // default value
+    calculateChangedBits
+
   );
   

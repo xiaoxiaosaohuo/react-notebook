@@ -17,7 +17,10 @@ class App extends React.Component{
   }
   render(){
     return(
-      <FancyButton ref={this.ref} onClick={this.onClick}>Click me!</FancyButton>
+      <div>
+        <FancyButton ref={this.ref} onClick={this.onClick}>Click me!</FancyButton>
+
+      </div>
     )
   }
 }

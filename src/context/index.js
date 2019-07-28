@@ -1,47 +1,55 @@
-import { ThemeContext, themes } from "./theme";
-import ThemedButton from "./button";
-import ThemeTogglerButton from "./toggler-button";
-import UserContext from "./userContext";
-import User from "./user";
+const calculateChangedBits = (currentValue, nextValue) =>
+currentValue.name !== nextValue.name ? 0b10 : 0b00;
+
+const UserContext = React.createContext(null,calculateChangedBits);
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      theme: themes.light,
-      toggleTheme: this.toggleTheme,
-      name: "jinxin sdf"
+      name: "beforeUpdate"
     };
   }
-  toggleTheme = () => {
+  setName = () => {
     this.setState(state => ({
-      theme: state.theme === themes.dark ? themes.light : themes.dark,
-      name: state.name === "siven" ? "jinxin test" : "siven"
+      name: state.name === "beforeUpdate" ? "afterUpdate" : "beforeUpdate"
     }));
   };
   render() {
-    // console.log(ThemeContext.Provider);
     return (
-      <ThemeContext.Provider value={this.state}>
-        <UserContext.Provider value={{ name: this.state.name }}>
-          <Content />
+        <UserContext.Provider value={{ name: this.state.name ,setName:this.setName}}>
+         <Indirection>
+          <User />
+        </Indirection>
         </UserContext.Provider>
-      </ThemeContext.Provider>
     );
   }
 }
 
-function Content() {
+function User() {
   return (
-    <div>
-      <ThemeTogglerButton />
-      <Indirection>
-        <User />
-      </Indirection>
-    </div>
+    <UserContext.Consumer unstable_observedBits={0b10}>
+      {({name,setName}) => (
+        <button
+        onClick={setName}
+          >
+          {name}
+          <UserContext.Consumer unstable_observedBits={0b10}>
+            {({name,setName}) => (
+              <p
+              onClick={setName}
+                >
+                {name}
+              </p>  
+            )}
+            </UserContext.Consumer>
+        </button>
+      )}
+      
+    </UserContext.Consumer>
   );
 }
-
 class Indirection extends React.Component {
   shouldComponentUpdate() {
     return false;
@@ -50,4 +58,6 @@ class Indirection extends React.Component {
     return this.props.children;
   }
 }
+
+
 export default App;

@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.0",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-es2015": "^7.0.0-beta.53",
     "@babel/preset-react": "^7.0.0",
@@ -33,8 +34,8 @@
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.1",
     "raven-js": "^3.27.0",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
+    "react": "v16.9.0-alpha.0",
+    "react-dom": "v16.9.0-alpha.0",
     "strict-uri-encode": "^2.0.0",
     "style-loader": "^0.20.3",
     "styled-components": "^4.1.3",
