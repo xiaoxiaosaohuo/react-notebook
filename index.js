@@ -1,4 +1,4 @@
-import ForwardRef from "./src/Ref/forwardRef";
+import ReactRedux from "./src/demo";
 // import Raven from "raven-js";
 // import { sentry_url, logException } from "./src/mointor";
 const mountNode = document.getElementById("root");
@@ -55,4 +55,4 @@ class App extends React.Component {
   }
 }
 debugger;
-ReactDOM.render(<ForwardRef/>, mountNode);
+ReactDOM.render(<ReactRedux/>, mountNode);
