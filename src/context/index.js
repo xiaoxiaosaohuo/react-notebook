@@ -1,47 +1,43 @@
-
-import {ThemeContext, themes} from './theme';
-import ThemedButton from './button';
-import ThemeTogglerButton from './toggler-button';
+import { ThemeContext, themes } from "./theme";
+import ThemedButton from "./button";
+import ThemeTogglerButton from "./toggler-button";
 import UserContext from "./userContext";
 import User from "./user";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    
-      this.state = {
-        theme: themes.light,
-		toggleTheme: this.toggleTheme,
-		name:"jinxin"
-      };
+
+    this.state = {
+      theme: themes.light,
+      toggleTheme: this.toggleTheme,
+      name: "jinxin sdf"
+    };
   }
   toggleTheme = () => {
     this.setState(state => ({
-      theme:
-        state.theme === themes.dark
-          ? themes.light
-		  : themes.dark,
-		name:state.name==="siven"?"jinxin":"siven"
+      theme: state.theme === themes.dark ? themes.light : themes.dark,
+      name: state.name === "siven" ? "jinxin test" : "siven"
     }));
-  }
+  };
   render() {
-    console.log(ThemeContext.Provider);
+    // console.log(ThemeContext.Provider);
     return (
-        <ThemeContext.Provider value={this.state}>
-            <UserContext.Provider value={{name:this.state.name}}>
-              <Content />
-            </UserContext.Provider>
+      <ThemeContext.Provider value={this.state}>
+        <UserContext.Provider value={{ name: this.state.name }}>
+          <Content />
+        </UserContext.Provider>
       </ThemeContext.Provider>
     );
   }
 }
 
 function Content() {
-    return (
-      <div>
-        <ThemeTogglerButton />
-        <User></User>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <ThemeTogglerButton />
+      <User />
+    </div>
+  );
+}
 
-export default App
+export default App;

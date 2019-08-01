@@ -1,4 +1,4 @@
-/** @license React v16.8.0-alpha.0
+/** @license React v16.8.6
  * react.development.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -17,7 +17,7 @@
 
 // TODO: this is special because it gets imported during build.
 
-var ReactVersion = '16.8.0-alpha.0';
+var ReactVersion = '16.8.6';
 
 // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
 // nor polyfill, then a plain number is used for performance.
@@ -50,46 +50,6 @@ function getIteratorFn(maybeIterable) {
   }
   return null;
 }
-
-var enableHooks = true;
-// Helps identify side effects in begin-phase lifecycle hooks and setState reducers:
-
-
-// In some cases, StrictMode should also double-render lifecycles.
-// This can be confusing for tests though,
-// And it can be bad for performance in production.
-// This feature flag can be used to control the behavior:
-
-
-// To preserve the "Pause on caught exceptions" behavior of the debugger, we
-// replay the begin phase of a failed component inside invokeGuardedCallback.
-
-
-// Warn about deprecated, async-unsafe lifecycles; relates to RFC #6:
-
-
-// Gather advanced timing metrics for Profiler subtrees.
-
-
-// Trace which interactions trigger each commit.
-var enableSchedulerTracing = true;
-
-// Only used in www builds.
- // TODO: true? Here it might just be false.
-
-// Only used in www builds.
-
-
-// Only used in www builds.
-
-
-// React Fire: prevent the value and checked attributes from syncing
-// with their related DOM properties
-
-
-// These APIs will no longer be "unstable" in the upcoming 16.7 release,
-// Control this behavior with a flag to support 16.6 minor releases in the meanwhile.
-var enableStableConcurrentModeAPIs = true;
 
 /*
 object-assign
@@ -537,7 +497,7 @@ function createRef() {
   return refObject;
 }
 
-var enableSchedulerDebugging$1 = false;
+var enableSchedulerDebugging = false;
 
 /* eslint-disable no-var */
 
@@ -705,7 +665,7 @@ function flushImmediateWork() {
 function flushWork(didTimeout) {
   // Exit right away if we're currently paused
 
-  if (enableSchedulerDebugging$1 && isSchedulerPaused) {
+  if (enableSchedulerDebugging && isSchedulerPaused) {
     return;
   }
 
@@ -715,8 +675,8 @@ function flushWork(didTimeout) {
   try {
     if (didTimeout) {
       // Flush all the expired callbacks without yielding.
-      while (firstCallbackNode !== null && !(enableSchedulerDebugging$1 && isSchedulerPaused)) {
-        // TODO Wrap i nfeature flag
+      while (firstCallbackNode !== null && !(enableSchedulerDebugging && isSchedulerPaused)) {
+        // TODO Wrap in feature flag
         // Read the current time. Flush all the callbacks that expire at or
         // earlier than that time. Then read the current time again and repeat.
         // This optimizes for as few performance.now calls as possible.
@@ -724,7 +684,7 @@ function flushWork(didTimeout) {
         if (firstCallbackNode.expirationTime <= currentTime) {
           do {
             flushFirstCallback();
-          } while (firstCallbackNode !== null && firstCallbackNode.expirationTime <= currentTime && !(enableSchedulerDebugging$1 && isSchedulerPaused));
+          } while (firstCallbackNode !== null && firstCallbackNode.expirationTime <= currentTime && !(enableSchedulerDebugging && isSchedulerPaused));
           continue;
         }
         break;
@@ -733,7 +693,7 @@ function flushWork(didTimeout) {
       // Keep flushing callbacks until we run out of time in the frame.
       if (firstCallbackNode !== null) {
         do {
-          if (enableSchedulerDebugging$1 && isSchedulerPaused) {
+          if (enableSchedulerDebugging && isSchedulerPaused) {
             break;
           }
           flushFirstCallback();
@@ -764,6 +724,37 @@ function unstable_runWithPriority(priorityLevel, eventHandler) {
       break;
     default:
       priorityLevel = NormalPriority;
+  }
+
+  var previousPriorityLevel = currentPriorityLevel;
+  var previousEventStartTime = currentEventStartTime;
+  currentPriorityLevel = priorityLevel;
+  currentEventStartTime = getCurrentTime();
+
+  try {
+    return eventHandler();
+  } finally {
+    currentPriorityLevel = previousPriorityLevel;
+    currentEventStartTime = previousEventStartTime;
+
+    // Before exiting, flush all the immediate work that was scheduled.
+    flushImmediateWork();
+  }
+}
+
+function unstable_next(eventHandler) {
+  var priorityLevel = void 0;
+  switch (currentPriorityLevel) {
+    case ImmediatePriority:
+    case UserBlockingPriority:
+    case NormalPriority:
+      // Shift down to normal priority
+      priorityLevel = NormalPriority;
+      break;
+    default:
+      // Anything lower than normal priority should remain at the current level.
+      priorityLevel = currentPriorityLevel;
+      break;
   }
 
   var previousPriorityLevel = currentPriorityLevel;
@@ -1170,6 +1161,45 @@ typeof MessageChannel !== 'function') {
     timeoutTime = -1;
   };
 }
+
+// Helps identify side effects in begin-phase lifecycle hooks and setState reducers:
+
+
+// In some cases, StrictMode should also double-render lifecycles.
+// This can be confusing for tests though,
+// And it can be bad for performance in production.
+// This feature flag can be used to control the behavior:
+
+
+// To preserve the "Pause on caught exceptions" behavior of the debugger, we
+// replay the begin phase of a failed component inside invokeGuardedCallback.
+
+
+// Warn about deprecated, async-unsafe lifecycles; relates to RFC #6:
+
+
+// Gather advanced timing metrics for Profiler subtrees.
+
+
+// Trace which interactions trigger each commit.
+var enableSchedulerTracing = true;
+
+// Only used in www builds.
+ // TODO: true? Here it might just be false.
+
+// Only used in www builds.
+
+
+// Only used in www builds.
+
+
+// React Fire: prevent the value and checked attributes from syncing
+// with their related DOM properties
+
+
+// These APIs will no longer be "unstable" in the upcoming 16.7 release,
+// Control this behavior with a flag to support 16.6 minor releases in the meanwhile.
+var enableStableConcurrentModeAPIs = false;
 
 var DEFAULT_THREAD_ID = 0;
 
@@ -1700,11 +1730,17 @@ var ReactSharedInternals = {
       unstable_now: getCurrentTime,
       unstable_scheduleCallback: unstable_scheduleCallback,
       unstable_runWithPriority: unstable_runWithPriority,
+      unstable_next: unstable_next,
       unstable_wrapCallback: unstable_wrapCallback,
       unstable_getFirstCallbackNode: unstable_getFirstCallbackNode,
       unstable_pauseExecution: unstable_pauseExecution,
       unstable_continueExecution: unstable_continueExecution,
-      unstable_getCurrentPriorityLevel: unstable_getCurrentPriorityLevel
+      unstable_getCurrentPriorityLevel: unstable_getCurrentPriorityLevel,
+      unstable_IdlePriority: IdlePriority,
+      unstable_ImmediatePriority: ImmediatePriority,
+      unstable_LowPriority: LowPriority,
+      unstable_NormalPriority: NormalPriority,
+      unstable_UserBlockingPriority: UserBlockingPriority
     },
     SchedulerTracing: {
       __interactionsRef: interactionsRef,
@@ -2585,13 +2621,15 @@ function memo(type, compare) {
 
 function resolveDispatcher() {
   var dispatcher = ReactCurrentDispatcher.current;
-  !(dispatcher !== null) ? invariant(false, 'Hooks can only be called inside the body of a function component.') : void 0;
+  !(dispatcher !== null) ? invariant(false, 'Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons:\n1. You might have mismatching versions of React and the renderer (such as React DOM)\n2. You might be breaking the Rules of Hooks\n3. You might have more than one copy of React in the same app\nSee https://fb.me/react-invalid-hook-call for tips about how to debug and fix this problem.') : void 0;
   return dispatcher;
 }
 
-function useContext(Context, observedBits) {
+function useContext(Context, unstable_observedBits) {
   var dispatcher = resolveDispatcher();
   {
+    !(unstable_observedBits === undefined) ? warning$1(false, 'useContext() second argument is reserved for future ' + 'use in React. Passing it is not supported. ' + 'You passed: %s.%s', unstable_observedBits, typeof unstable_observedBits === 'number' && Array.isArray(arguments[2]) ? '\n\nDid you call array.map(useContext)? ' + 'Calling Hooks inside a loop is not supported. ' + 'Learn more at https://fb.me/rules-of-hooks' : '') : void 0;
+
     // TODO: add a more generic warning for invalid values.
     if (Context._context !== undefined) {
       var realContext = Context._context;
@@ -2604,7 +2642,7 @@ function useContext(Context, observedBits) {
       }
     }
   }
-  return dispatcher.useContext(Context, observedBits);
+  return dispatcher.useContext(Context, unstable_observedBits);
 }
 
 function useState(initialState) {
@@ -2612,9 +2650,9 @@ function useState(initialState) {
   return dispatcher.useState(initialState);
 }
 
-function useReducer(reducer, initialState, initialAction) {
+function useReducer(reducer, initialArg, init) {
   var dispatcher = resolveDispatcher();
-  return dispatcher.useReducer(reducer, initialState, initialAction);
+  return dispatcher.useReducer(reducer, initialArg, init);
 }
 
 function useRef(initialValue) {
@@ -2642,9 +2680,16 @@ function useMemo(create, inputs) {
   return dispatcher.useMemo(create, inputs);
 }
 
-function useImperativeMethods(ref, create, inputs) {
+function useImperativeHandle(ref, create, inputs) {
   var dispatcher = resolveDispatcher();
-  return dispatcher.useImperativeMethods(ref, create, inputs);
+  return dispatcher.useImperativeHandle(ref, create, inputs);
+}
+
+function useDebugValue(value, formatterFn) {
+  {
+    var dispatcher = resolveDispatcher();
+    return dispatcher.useDebugValue(value, formatterFn);
+  }
 }
 
 /**
@@ -3053,6 +3098,17 @@ var React = {
   lazy: lazy,
   memo: memo,
 
+  useCallback: useCallback,
+  useContext: useContext,
+  useEffect: useEffect,
+  useImperativeHandle: useImperativeHandle,
+  useDebugValue: useDebugValue,
+  useLayoutEffect: useLayoutEffect,
+  useMemo: useMemo,
+  useReducer: useReducer,
+  useRef: useRef,
+  useState: useState,
+
   Fragment: REACT_FRAGMENT_TYPE,
   StrictMode: REACT_STRICT_MODE_TYPE,
   Suspense: REACT_SUSPENSE_TYPE,
@@ -3080,18 +3136,6 @@ if (enableStableConcurrentModeAPIs) {
   React.Profiler = REACT_PROFILER_TYPE;
   React.unstable_ConcurrentMode = undefined;
   React.unstable_Profiler = undefined;
-}
-
-if (enableHooks) {
-  React.useCallback = useCallback;
-  React.useContext = useContext;
-  React.useEffect = useEffect;
-  React.useImperativeMethods = useImperativeMethods;
-  React.useLayoutEffect = useLayoutEffect;
-  React.useMemo = useMemo;
-  React.useReducer = useReducer;
-  React.useRef = useRef;
-  React.useState = useState;
 }
 
 

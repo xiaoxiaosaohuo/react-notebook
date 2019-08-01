@@ -13,30 +13,30 @@ const App = () => {
 export default App;
 
 
-const ParentComponent = () => {
-    const [name, setName] = useState()
+// const ParentComponent = () => {
+//     const [name, setName] = useState()
 
-    return (
-        <ChildComponent toUpperCase={setName} />
-    )
-}
+//     return (
+//         <ChildComponent toUpperCase={setName} />
+//     )
+// }
 
 const ChildComponent = (props) => {
     useEffect(() => {
         props.toUpperCase((state) => state.toUpperCase())
     }, [true])
 
-    return null
+    return <div>child</div>
 }
 
 
-const ChildComponent = () => {
-    useState('foo')
-    useState('bar')
-    useState('baz')
+// const ChildComponent = () => {
+//     useState('foo')
+//     useState('bar')
+//     useState('baz')
 
-    return null
-}
+//     return null
+// }
 
 const ParentComponent = () => {
     const childFiberRef = useRef()
