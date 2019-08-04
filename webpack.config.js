@@ -3,21 +3,20 @@ const webpack = require("webpack");
 const isDebug = process.env.NODE_ENV === 'development'
 const publicPath = path.resolve(__dirname, "..");
 module.exports = {
-  mode: isDebug ? "development" : "production",
-  devtool: "eval-source-map",
+  mode: isDebug ? 'development' : 'production',
+  devtool: 'eval-source-map',
   entry: {
-    index: "./index.js"
+    "index": "./index.js"
   },
   output: {
-    filename: "[name]_bundle.js",
-    publicPath: "/assets/",
+    filename: '[name]_bundle.js',
     path: path.resolve(__dirname, "dist")
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     historyApiFallback: true,
     inline: true,
-    port: "3001"
+    port: '3002'
   },
   module: {
     rules: [
@@ -26,12 +25,12 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["es2015", "stage-0", "react", "env"],
-            plugins: [
-              "transform-object-rest-spread",
-              "transform-decorators-legacy",
-              "transform-class-properties",
-              ["import", { libraryName: "antd-mobile", style: "css" }]
+            presets: [
+              '@babel/preset-env', "@babel/preset-react",
+            ],
+            "plugins": [
+              "@babel/plugin-syntax-dynamic-import",
+              "@babel/plugin-proposal-class-properties"
             ]
           }
         },
@@ -52,7 +51,10 @@ module.exports = {
           {
             loader: "postcss-loader",
             options: {
-              plugins: [require("autoprefixer"), require("postcss-import")]
+              plugins: [
+                require('autoprefixer'),
+                require('postcss-import')
+              ]
             }
           }
         ]
@@ -61,7 +63,7 @@ module.exports = {
         test: /\.(png|jpg|jpeg|gif|woff)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 8192,
               name: "[name].[ext]"
@@ -71,11 +73,12 @@ module.exports = {
       }
     ]
   },
-  resolve: {},
+  resolve: {
+  },
   plugins: [
     // new webpack.BannerPlugin("yhyh copyRight"),
     // new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn/
     // )
     // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ]
-};
+}
