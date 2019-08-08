@@ -7,11 +7,11 @@ import { useDispatch } from './hooks/useDispatch'
 import { useSelector } from './hooks/useSelector'
 import { useStore } from './hooks/useStore'
 
-import { setBatch } from './utils/batch'
-// import { unstable_batchedUpdates as batch } from './utils/reactBatchedUpdates'
+// import { getBatch } from './utils/batch'
 import shallowEqual from './utils/shallowEqual'
 
-// setBatch(batch)
+// For other renderers besides ReactDOM and React Native, use the default noop batch function
+// const batch = getBatch()
 
 export {
   Provider,

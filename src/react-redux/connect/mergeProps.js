@@ -1,12 +1,10 @@
 import verifyPlainObject from '../utils/verifyPlainObject'
 
 export function defaultMergeProps(stateProps, dispatchProps, ownProps) {
-  debugger;
   return { ...ownProps, ...stateProps, ...dispatchProps }
 }
 
 export function wrapMergePropsFunc(mergeProps) {
-  debugger;
   return function initMergePropsProxy(
     dispatch,
     { displayName, pure, areMergedPropsEqual }

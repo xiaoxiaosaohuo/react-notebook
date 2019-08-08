@@ -1,68 +1,50 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { ReactReduxContext } from './Context'
 
-class Provider extends Component {
+import { ReactReduxContext } from './Context'
+import Subscription from '../utils/Subscription'
+
+class Provider extends React.Component {
   constructor(props) {
     super(props)
-    
+    debugger;
     const { store } = props
 
+    this.notifySubscribers = this.notifySubscribers.bind(this)
+    const subscription = new Subscription(store)
+    subscription.onStateChange = this.notifySubscribers
+
     this.state = {
-      storeState: store.getState(),
-      store
+      store,
+      subscription
     }
-    
-    
+
+    this.previousState = store.getState()
   }
 
   componentDidMount() {
-    this._isMounted = true;
-    debugger;
-    this.subscribe()
+    this.state.subscription.trySubscribe()
+
+    if (this.previousState !== this.props.store.getState()) {
+      this.state.subscription.notifyNestedSubs()
+    }
   }
 
   componentWillUnmount() {
     if (this.unsubscribe) this.unsubscribe()
 
-    this._isMounted = false
+    this.state.subscription.tryUnsubscribe()
   }
 
   componentDidUpdate(prevProps) {
-    debugger;
     if (this.props.store !== prevProps.store) {
-
-      if (this.unsubscribe) this.unsubscribe()
-
-      this.subscribe()
+      this.state.subscription.tryUnsubscribe()
+      const subscription = new Subscription(this.props.store)
+      subscription.onStateChange = this.notifySubscribers
+      this.setState({ store: this.props.store, subscription })
     }
   }
 
-  subscribe() {
-    const { store } = this.props
-
-    this.unsubscribe = store.subscribe(() => {
-      const newStoreState = store.getState()
-
-      if (!this._isMounted) {
-        return
-      }
-
-      this.setState(providerState => {
-        // If the value is the same, skip the unnecessary state update.
-        if (providerState.storeState === newStoreState) {
-          return null
-        }
-
-        return { storeState: newStoreState }
-      })
-    })
-
-    // Actions might have been dispatched between render and mount - handle those
-    const postMountStoreState = store.getState()
-    if (postMountStoreState !== this.state.storeState) {
-      this.setState({ storeState: postMountStoreState })
-    }
+  notifySubscribers() {
+    this.state.subscription.notifyNestedSubs()
   }
 
   render() {
@@ -76,14 +58,6 @@ class Provider extends Component {
   }
 }
 
-Provider.propTypes = {
-  store: PropTypes.shape({
-    subscribe: PropTypes.func.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    getState: PropTypes.func.isRequired
-  }),
-  context: PropTypes.object,
-  children: PropTypes.any
-}
+
 
 export default Provider

@@ -6,7 +6,6 @@ export function impureFinalPropsSelectorFactory(
   mergeProps,
   dispatch
 ) {
-  debugger;
   return function impureFinalPropsSelector(state, ownProps) {
     return mergeProps(
       mapStateToProps(state, ownProps),
@@ -29,7 +28,7 @@ export function pureFinalPropsSelectorFactory(
   let stateProps
   let dispatchProps
   let mergedProps
-  debugger;
+
   function handleFirstCall(firstState, firstOwnProps) {
     state = firstState
     ownProps = firstOwnProps

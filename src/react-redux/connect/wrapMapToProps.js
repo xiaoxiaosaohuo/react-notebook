@@ -1,7 +1,6 @@
 import verifyPlainObject from '../utils/verifyPlainObject'
 
 export function wrapMapToPropsConstant(getConstant) {
-  debugger;
   return function initConstantSelector(dispatch, options) {
     const constant = getConstant(dispatch, options)
 
@@ -40,7 +39,6 @@ export function getDependsOnOwnProps(mapToProps) {
 //    the developer that their mapToProps function is not returning a valid result.
 //
 export function wrapMapToPropsFunc(mapToProps, methodName) {
-  debugger;
   return function initProxySelector(dispatch, { displayName }) {
     const proxy = function mapToPropsProxy(stateOrDispatch, ownProps) {
       return proxy.dependsOnOwnProps

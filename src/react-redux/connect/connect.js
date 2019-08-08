@@ -50,7 +50,6 @@ export function createConnect({
   mergePropsFactories = defaultMergePropsFactories,
   selectorFactory = defaultSelectorFactory
 } = {}) {
-  debugger;
   return function connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -64,7 +63,6 @@ export function createConnect({
       ...extraOptions
     } = {}
   ) {
-    debugger;
     const initMapStateToProps = match(
       mapStateToProps,
       mapStateToPropsFactories,
