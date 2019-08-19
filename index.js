@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-08-08 13:16:57
+ * @LastEditTime: 2019-08-19 19:42:18
+ * @LastEditors: Please set LastEditors
+ */
 import ReactRedux from "./src/demo";
 // import Raven from "raven-js";
 // import { sentry_url, logException } from "./src/mointor";
@@ -17,32 +24,13 @@ class App extends React.Component {
     }
   }
   changeState= ()=>{
-    this.setState({
-      a:2
-    })
-    this.setState({
-      a:3
-    })
-    console.log(this.state)
+    
   }
   onClick = () =>{
-    this.setState((prevState, nextProps) => {
-        return {a:prevState.a + 1};
-      })
-      this.setState((prevState, nextProps) => {
-        return {a:prevState.a + 1};
-      })
-      this.setState((prevState, nextProps) => {
-        return {a:prevState.a + 1};
-      })
-      this.setState((prevState, nextProps) => {
-        return {a:prevState.a + 1};
-      })
-  
+    
 
   }
   componentDidMount(){
-    
   }
   render() {
     // logException(new Error("download failed"), {
@@ -55,4 +43,4 @@ class App extends React.Component {
   }
 }
 debugger;
-ReactDOM.render(<ReactRedux/>, mountNode);
+ReactDOM.render(<App/>, mountNode);
