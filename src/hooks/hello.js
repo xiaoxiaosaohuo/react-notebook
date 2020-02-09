@@ -1,3 +1,10 @@
+/*
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-04-09 12:59:16
+ * @LastEditTime: 2019-04-09 12:59:16
+ * @LastEditors: your name
+ */
 const array01 = [1,2,3,4]
 
 const  Hello =  () => {
@@ -5,13 +12,13 @@ const  Hello =  () => {
   const [count, setCount] = React.useState(0);
   
   const [name, setName] = React.useState("test");
-  const onClick = ()=>{
+  const onClick = React.useCallback(()=>{
     // const arr = [1,4,2,3]
     setCount(count+1);
     // setName('hello world');
-  }
+  },[])
   React.useEffect(() => {
-    debugger;
+    // debugger;
     document.title = `You clicked ${count} times`;
     
   },[count]);
